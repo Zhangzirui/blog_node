@@ -1,5 +1,6 @@
-import Home from '$pages/home';
-import Detail from '$pages/detail';
+import Home from '$pages/home/home';
+import React from 'react';
+import Detail from '$pages/detail/detail';
 
 const routeConfig = [
     {

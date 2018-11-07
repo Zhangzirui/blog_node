@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development webpack --config ./build/webpack.client.js",
     "prd": "NODE_ENV=production webpack --config ./build/webpack.client.js",
-    "server": "webpack --config ./build/webpack.server.js"
+    "server": "npm run buildServer && npm run devServer",
+    "buildServer": "webpack --config ./build/webpack.server.js",
+    "devServer": "node ./node/server.js"
   },
   "author": "",
   "license": "ISC",

@@ -8,10 +8,13 @@ import {htmlTemplate} from '$util/serverUtil';
 
 const app = express();
 const router = express.Router();
-
-app.use(express.static(path.resolve(__dirname, '../dist')));
+const PORT = 8000;
+const staticPath = path.resolve(__dirname, '../dist');
+console.log('staticPath: ', staticPath);
+app.use(express.static(staticPath));
 
 router.get('/*', (req, res) => {
+    console.log(req.url);
     let renderObj;
 
     routeConfig
@@ -23,23 +26,38 @@ router.get('/*', (req, res) => {
             return false;
         });
     if (renderObj) {
-        fs.readdirSync('../dist')
+        fs.readdirSync(staticPath)
             .forEach((file) => {
                 if (file.indexOf(renderObj.name) !== -1) {
-                    renderObj.jsPath = file;
+                    if (file.endsWith('js')) {
+                        renderObj.jsPath = file;
+                    } else if (file.endsWith('css')) {
+                        renderObj.cssPath = file;
+                    }
                 }
                 if (file.indexOf('common') !== -1) {
-                    renderObj.jsCommonPath = file;
+                    if (file.endsWith('js')) {
+                        renderObj.jsCommonPath = file;
+                    } else if (file.endsWith('css')) {
+                        renderObj.cssCommonPath = file;
+                    }
                 }
             });
 
-        const reactStr = ReactDOM.renderToString(renderObj.component);
-
+        
+        renderObj.component = ReactDOM.renderToString(renderObj.component);
+        console.log(renderObj);
         res.set('Content-type', 'text/html');
-        res.end(htmlTemplate(reactStr));
+        res.end(htmlTemplate(renderObj));
     } else {
         res.end('404');
     }
 });
 
-app.use('blognode', router);
+app.use('/blognode', router);
+
+app.listen(PORT, () => {
+    console.log('node ssr ...');
+});
+
+
