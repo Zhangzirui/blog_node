@@ -10,7 +10,8 @@ module.exports = {
         alias: {
             '$pages': resolve('../src/pages'),
             '$route': resolve('../src/route'),
-            '$util': resolve('../src/util')
+            '$util': resolve('../src/util'),
+            '$common': resolve('../src/common')
         }
     },
     module: {

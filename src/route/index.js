@@ -1,12 +1,18 @@
-import Home from '$pages/home/home';
+import Home from '$pages/home';
 import React from 'react';
-import Detail from '$pages/detail/detail';
+import Detail from '$pages/detail';
+import {fetchHomeData} from '$pages/home/action';
+import getHomeStore from '$pages/home/store';
+// import {fetchHomeData} from '$pages/detail/action';
 
 const routeConfig = [
     {
         url: '/',
         name: 'home',
-        component: <Home />
+        component: <Home />,
+        action: fetchHomeData,
+        param: ['pageNumber', 'pageSize'],
+        store: getHomeStore()
     },
     {
         url: '/detail',

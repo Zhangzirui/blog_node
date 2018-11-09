@@ -4,8 +4,8 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const resolve = (filePath) => path.resolve(__dirname, filePath);
-// const includePath = resolve('../src');
-// const excludePath = resolve('../node_modules');
+const includePath = resolve('../src');
+const excludePath = resolve('../node_modules');
 let nodeModules = {};
 
 fs.readdirSync('node_modules')
@@ -25,28 +25,18 @@ module.exports = merge(common, {
         path: resolve('../node'),
         filename: '[name].js'
     },
-    // module: {
-    //     rules: [
-    //         {
-    //             test: /\.scss$/,
-    //             include: includePath,
-    //             exclude: excludePath,
-    //             use: [
-    //                 'style-loader',
-    //                 'css-loader',
-    //                 {
-    //                     loader: 'postcss-loader',
-    //                     options: {
-    //                         plugins: [
-    //                             require('autoprefixer')
-    //                         ]
-    //                     }
-    //                 },
-    //                 'sass-loader'
-    //             ]
-    //         }
-    //     ]
-    // },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                include: includePath,
+                exclude: excludePath,
+                use: [
+                    'ignore-loader'
+                ]
+            }
+        ]
+    },
     plugins: [
         new CleanWebpackPlugin(['server'], {
             root: resolve('../')

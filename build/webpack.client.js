@@ -20,6 +20,10 @@ module.exports = merge(common, {
         path: resolve('../dist'),
         filename: isPrd ? '[name].[chunkhash:8].js' : '[name].js'
     },
+    devServer: {
+        contentBase: './dist',
+        port: 9000
+    },
     module: {
         rules: [
             {
@@ -46,9 +50,10 @@ module.exports = merge(common, {
         new CleanWebpackPlugin(['dist'], {
             root: resolve('../')
         }),
-        // new HtmlWebpackPlugin({
-        //     template: '../index.html'
-        // }),
+        new HtmlWebpackPlugin({
+            template: '../index.html',
+            chunks: ['home']
+        }),
         new MiniCssExtractPlugin({
             filename: isPrd ? '[name].[chunkhash:8].css' : '[name].css'
         })

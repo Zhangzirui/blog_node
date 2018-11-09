@@ -10,7 +10,7 @@ const app = express();
 const router = express.Router();
 const PORT = 8000;
 const staticPath = path.resolve(__dirname, '../dist');
-console.log('staticPath: ', staticPath);
+
 app.use(express.static(staticPath));
 
 router.get('/*', (req, res) => {
@@ -43,8 +43,13 @@ router.get('/*', (req, res) => {
                     }
                 }
             });
-
-        
+        const args = renderObj.param.map((item) => {
+            return req.query[item];
+        });
+        renderObj.store.dispath(renderObj.action.apply(null, args))
+            .then(() => {
+                
+            });
         renderObj.component = ReactDOM.renderToString(renderObj.component);
         console.log(renderObj);
         res.set('Content-type', 'text/html');
