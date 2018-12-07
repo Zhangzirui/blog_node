@@ -1,7 +1,9 @@
-import axiosUrl from '$util/axiosUrl';
+import {axiosUrl, getJson} from '$util/request';
 import {
     UPDATE_HOME_DATA,
-    FETCH_STATUS
+    FETCH_HOME_DATA,
+    FETCH_STATUS,
+    UPDATE_PAGE
 } from '../constant/default';
 
 import {
@@ -10,26 +12,28 @@ import {
     PAGE_SIZE
 } from '../constant/config';
 
-const updateHomeData = (status, data = {}) => ({
+const updateHomeData = ({articleList = [], articleNumber = 0} = {}) => ({
     type: UPDATE_HOME_DATA,
-    status,
-    articleList: data.articleList || [],
-    allCount: data.articleNumber || 0
+    articleList,
+    allCount: articleNumber
 });
 
-export const fetchHomeData = (pageNumber = PAGE_NUMBER, pageSize = PAGE_SIZE, errCb) => (dispatch) => {
-    dispatch(updateHomeData(FETCH_STATUS.START));
+export const fetchHomeData = ({pageNumber = PAGE_NUMBER, pageSize = PAGE_SIZE} = {}) => (dispatch) => {
+    dispatch({
+        type: FETCH_HOME_DATA + FETCH_STATUS.START
+    });
     return axiosUrl({
         url: homeApi,
         pageNumber,
         pageSize
     })
-        .then((res) => {
-            if (res && res.state === 0) {
-                dispatch(updateHomeData(FETCH_STATUS.SUCCESS, res.data));
-                return;
-            }
-            dispatch(updateHomeData(FETCH_STATUS.FAIL));
-            errCb && errCb(res.msg);
+        .then(getJson)
+        .then((data) => {
+            dispatch(updateHomeData(data));
         });
 };
+
+export const updatePage = (currentPage) => ({
+    type: UPDATE_PAGE,
+    currentPage
+});

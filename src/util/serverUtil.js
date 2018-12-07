@@ -29,7 +29,7 @@ export const htmlTemplate = function(renderObj, initialState) {
             </script>  
         </head>
         <body>
-            <div id="root">${renderObj.component}</div>
+            <div id="root">${renderObj.reactString}</div>
             <script type="text/javascript" src="../${renderObj.jsPath}"></script>
         </body>
     </html>

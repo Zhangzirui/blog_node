@@ -22,7 +22,7 @@ module.exports = merge(common, {
     },
     devServer: {
         contentBase: './dist',
-        port: 9000
+        port: 3000
     },
     module: {
         rules: [

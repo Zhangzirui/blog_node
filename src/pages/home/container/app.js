@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
 import Sidebar from '$common/components/sidebar';
+import Pagination from '$common/components/pagination';
 import {connect} from 'react-redux';
+import {updatePage, fetchHomeData} from '../action';
+import {PAGE_SIZE} from '../constant/config';
 import '$common/style/index.scss';
 import './app.scss';
 
 const mapStateToProps = (state) => ({
-    ...state
+    articleData: state.articleData,
+    meta: state.meta
 });
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+    updatePage,
+    fetchHomeData
+};
+@connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
     render() {
-        console.log(this.props);
-        const {articleList} = this.props;
+        const {articleData: {articleList = [], allCount} = {}, meta: {currentPage} = {}} = this.props;
         return (
             <div className="app" suppressHydrationWarning={true}>
                 <Sidebar />
@@ -50,9 +57,29 @@ class Home extends Component {
                             );
                         })
                     }
+                    <Pagination
+                        currentPage={currentPage}
+                        allCount={allCount}
+                        pageSize={PAGE_SIZE}
+                        changePage={this.onChangePage} />
                 </div>
             </div>
         );
+    }
+
+    onChangePage = (page) => {
+        const {currentPage, updatePage, fetchHomeData} = this.props;
+        if (currentPage !== page) {
+            updatePage(page);
+            fetchHomeData({
+                pageNumber: page
+            });
+        }
+    }
+
+    getAllPage() {
+        const {articleData: {allCount} = {}} = this.props;
+
     }
 };
 

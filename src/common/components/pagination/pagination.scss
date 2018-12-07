@@ -1,0 +1,38 @@
+.comp-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .3rem .1rem .2rem;
+    font-size: .2rem;
+    .item {
+        display: inline-block;
+        transition: color .3s;
+        &:nth-child(3) {
+            margin: 0 .1rem;
+        }
+        &-input {
+            padding: .08rem;
+            width: .2rem;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            text-align: center;
+            font-size: .16rem;
+            transition: border-color .3s;
+            &:hover {
+                border-color: #0090fe;
+            }
+        }
+        &.iconfont {
+            margin: 0 .2rem;
+        }
+        &-trigger {
+            cursor: pointer;
+            &:hover {
+                color: #0090fe;
+            }
+        }
+        &-disabled {
+            color: #d9d9d9;
+        }
+    }
+}

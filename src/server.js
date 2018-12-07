@@ -14,7 +14,8 @@ const staticPath = path.resolve(__dirname, '../dist');
 app.use(express.static(staticPath));
 
 router.get('/*', (req, res) => {
-    console.log(req.url);
+    console.log('url:', req.url);
+    console.log('path:', req.path);
     let renderObj;
 
     routeConfig
@@ -43,17 +44,17 @@ router.get('/*', (req, res) => {
                     }
                 }
             });
-        const args = renderObj.param.map((item) => {
+        let args = renderObj.param.map((item) => {
             return req.query[item];
         });
-        renderObj.store.dispath(renderObj.action.apply(null, args))
+
+        console.log(args);
+        renderObj.store.dispatch(renderObj.action(...args))
             .then(() => {
-                
+                renderObj.reactString = ReactDOM.renderToString(renderObj.component);
+                res.set('Content-type', 'text/html');
+                res.end(htmlTemplate(renderObj));
             });
-        renderObj.component = ReactDOM.renderToString(renderObj.component);
-        console.log(renderObj);
-        res.set('Content-type', 'text/html');
-        res.end(htmlTemplate(renderObj));
     } else {
         res.end('404');
     }

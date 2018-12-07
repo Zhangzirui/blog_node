@@ -5,7 +5,11 @@ import getStore from './store';
 import App from './container/app';
 import {fetchHomeData} from './action';
 
-const initStore = window.__initStore || {};
+let initStore = {};
+
+try {
+    initStore = window.__initStore || {};
+} catch(e) {}
 const store = getStore(initStore);
 
 if (Object.keys(initStore).length === 0) {
@@ -19,6 +23,8 @@ const Home = () => {
         </Provider>
     );
 };
+
+export default Home;
 
 try {
     ReactDOM.hydrate(

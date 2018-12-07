@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development webpack-dev-server --config ./build/webpack.client.js --open 'Google Chrome' --color --inline --hot",
     "prd": "NODE_ENV=production webpack --config ./build/webpack.client.js",
-    "server": "npm run buildServer && npm run devServer",
+    "server": "NODE_ENV=development webpack --config ./build/webpack.client.js && npm run buildServer && npm run devServer",
     "buildServer": "webpack --config ./build/webpack.server.js",
     "devServer": "node ./node/server.js"
   },
@@ -38,6 +38,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.4",
+    "prop-types": "^15.6.2",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.0",
