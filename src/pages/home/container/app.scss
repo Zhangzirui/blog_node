@@ -1,15 +1,4 @@
 .app {
-    background: #fff;
-    .main {
-        margin-left: 2.5rem;
-        padding: 0 .3rem;
-        @media screen and (max-width: 1100px) {
-            margin-left: .8rem;
-        }
-        @media screen and (max-width: 850px) {
-            margin-left: 0;
-        }
-    }
     .article {
         padding: .3rem 0;
         border-bottom: 2px solid #eee;

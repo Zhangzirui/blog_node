@@ -1,0 +1,34 @@
+.comp-catalog {
+    padding: .1rem;
+    font-size: .14rem;
+    background-color: #fff;
+    .wrap {
+        counter-reset: catalog;
+    }
+    .title {
+        font-size: .16rem;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+        padding: .05rem 0;
+    }
+    .item {
+        margin: 0;
+        color: #0090fe;
+        cursor: pointer;
+        &::before {
+            content: counters(catalog, '.') ' ';
+            counter-increment: catalog;
+            margin-right: .06rem;
+        }
+        .item {
+            padding-left: .2rem;
+        }
+    }
+    .catalog-h2,
+    .catalog-h3,
+    .catalog-h4 {
+        display: inline-block;
+        padding: .05rem 0;
+    }
+}

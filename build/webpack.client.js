@@ -22,7 +22,9 @@ module.exports = merge(common, {
     },
     devServer: {
         contentBase: './dist',
-        port: 3000
+        port: 8000,
+        index: 'home.html',
+        hot: true
     },
     module: {
         rules: [
@@ -51,8 +53,14 @@ module.exports = merge(common, {
             root: resolve('../')
         }),
         new HtmlWebpackPlugin({
+            filename: 'home.html',
             template: '../index.html',
             chunks: ['home']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'detail.html',
+            template: '../index.html',
+            chunks: ['detail']
         }),
         new MiniCssExtractPlugin({
             filename: isPrd ? '[name].[chunkhash:8].css' : '[name].css'

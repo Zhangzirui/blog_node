@@ -1,0 +1,15 @@
+.comp-menuItem {
+    .catalog {
+        position: absolute;
+        right: .8rem;
+        bottom: 0;
+        width: 2rem;
+        min-height: 2rem;
+        max-height: 4rem;
+        overflow-y: auto;
+        background-color: #fff;
+        z-index: 10000;
+        border: 1px solid #eee;
+        box-shadow: 0px 3px 6px -3px rgba(0, 0, 0, 0.8); 
+    }
+}

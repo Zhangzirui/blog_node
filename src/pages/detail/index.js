@@ -1,15 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Sidebar from '$common/components/sidebar';
-import './detail.scss';
-import '$common/style/index.scss';
+import {Provider} from 'react-redux';
+import getStore from '$util/store';
+import rootReducer from './reducer';
+import App from './container';
+import '@babel/polyfill';
+
+const store = getStore(rootReducer);
 
 const Detail = () => {
     return (
-        <div className="app" suppressHydrationWarning={true}>
-            <Sidebar />
-            <h1 className="title">detail</h1>
-        </div>
+        <Provider store={store}>
+            <App />
+        </Provider>
     );
 };
 

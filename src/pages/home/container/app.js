@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import Sidebar from '$common/components/sidebar';
 import Pagination from '$common/components/pagination';
+import MiniMenu from '$common/components/miniMenu';
+import ToTop from '$common/components/toTop';
 import {connect} from 'react-redux';
 import {updatePage, fetchHomeData} from '../action';
-import {PAGE_SIZE} from '../constant/config';
+import {PAGE_SIZE, PAGE_NUMBER} from '../constant/config';
+import {jump, get} from '$util';
 import '$common/style/index.scss';
 import './app.scss';
 
@@ -18,6 +21,13 @@ const mapDispatchToProps = {
 };
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
+    componentDidMount() {
+        const {articleData: {articleList = []} = {}} = this.props;
+        if (articleList.length === 0) {
+            this.getHomeData();
+        }
+    }
+
     render() {
         const {articleData: {articleList = [], allCount} = {}, meta: {currentPage} = {}} = this.props;
         return (
@@ -27,9 +37,9 @@ class Home extends Component {
                     {
                         articleList.map((item) => {
                             return (
-                                <div className="article" key={item.mId}>
+                                <div className="article" key={item.aId}>
                                     <div className="hd">
-                                        <h1 className="title">{item.title}</h1>
+                                        <h1 className="title" onClick={() => this.onJumpToArticle(item.aId)}>{item.title}</h1>
                                         <span className="desc">
                                             最新修改：
                                             <span className="value">{item.mTime}</span>
@@ -37,7 +47,7 @@ class Home extends Component {
                                     </div>
                                     <div className="bd">
                                         <div dangerouslySetInnerHTML={{__html: item.desc}}></div>
-                                        <p className="more">阅读全文<span className="iconfont icon-more"></span></p>
+                                        <p className="more" onClick={() => this.onJumpToArticle(item.aId)}>阅读全文<span className="iconfont icon-more"></span></p>
                                     </div>
                                     <div className="ft">
                                         <span className="desc">
@@ -63,23 +73,30 @@ class Home extends Component {
                         pageSize={PAGE_SIZE}
                         changePage={this.onChangePage} />
                 </div>
+                <MiniMenu>
+                    <ToTop duration={200} />
+                </MiniMenu>
             </div>
         );
     }
 
     onChangePage = (page) => {
-        const {currentPage, updatePage, fetchHomeData} = this.props;
+        const {currentPage, updatePage} = this.props;
         if (currentPage !== page) {
             updatePage(page);
-            fetchHomeData({
-                pageNumber: page
-            });
+            this.getHomeData(page);
         }
     }
 
-    getAllPage() {
-        const {articleData: {allCount} = {}} = this.props;
+    onJumpToArticle = (aId) => {
+        jump(`/detail.html?aId=${aId}`);
+    }
 
+    getHomeData(page) {
+        const {meta: {pageNumber = PAGE_NUMBER} = {}, fetchHomeData} = this.props;
+        fetchHomeData({
+            pageNumber: page || pageNumber
+        });
     }
 };
 

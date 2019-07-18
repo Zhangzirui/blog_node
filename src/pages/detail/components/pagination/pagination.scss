@@ -1,0 +1,22 @@
+.comp-pagination {
+    margin: .5rem 0;
+    display: flex;
+    justify-content: space-between;
+    .jump {
+        padding: 0 .2rem;
+        color: #0090fe;
+        font-size: .16rem;
+        line-height: .22rem;
+        cursor: pointer;
+        &.disabled {
+            color: #b9b9b9;
+            cursor: not-allowed;
+        }
+        .icon-zuo {
+            padding-right: .1rem;
+        }
+        .icon-you {
+            padding-left: .1rem;
+        }
+    }
+}

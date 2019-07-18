@@ -4,10 +4,11 @@
     top: 0;
     width: 2.5rem;
     height: 100%;
-    background-color: black;
     background: url('http://phvab8rs9.bkt.clouddn.com/sidebar-bg.jpg') no-repeat;
+    background-color: black;
     background-size: cover;
     color: #fff;
+    transition: transform 1s ease-in-out;
     .avatar {
         display: block;
         margin: 0.5rem auto 0.2rem;
@@ -15,6 +16,7 @@
         height: 1.2rem;
         border-radius: 50%;
         background-color: #666;
+        cursor: pointer;
     }
     .title,
     .desc {
@@ -64,9 +66,8 @@
     }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 650px) {
     .comp-sidebar {
-        transition: transform 1s ease-in-out;
-        transform: translateX(-8rem);
+        transform: translateX(-.8rem);
     }
 }

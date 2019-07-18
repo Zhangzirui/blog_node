@@ -1,10 +1,14 @@
 import React from 'react';
+import {jump} from '$util';
 import './sidebar.scss';
 
 const Sidebar = () => {
+    const onGoHome = () => {
+        jump('/home.html');
+    }
     return (
         <section className="comp-sidebar">
-            <img src="" alt="" className="avatar"/>
+            <img src="" alt="" className="avatar" onClick={onGoHome} />
             <h2 className="title">吃肉吃肉</h2>
             <p className="desc">我的前端实验室</p>
             <ul className="nav">

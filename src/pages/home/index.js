@@ -1,20 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import getStore from './store';
+import getStore from '$util/store';
 import App from './container/app';
-import {fetchHomeData} from './action';
+import rootReducer from './reducer';
+import '@babel/polyfill';
 
-let initStore = {};
-
-try {
-    initStore = window.__initStore || {};
-} catch(e) {}
-const store = getStore(initStore);
-
-if (Object.keys(initStore).length === 0) {
-    store.dispatch(fetchHomeData());
-}
+const store = getStore(rootReducer);
 
 const Home = () => {
     return (

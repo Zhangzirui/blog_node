@@ -25,3 +25,21 @@ export const getQuery = (url) => {
     }
     return queryObj;
 };
+
+export const getScroll = () => ({
+    top: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop,
+    left: document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft
+});
+
+export const throttle = (fn, delay = 300) => {
+    let timer;
+    return (...rest) => {
+        if (!timer) {
+            timer = setTimeout(() => {
+                fn && fn(...rest);
+                clearTimeout(timer);
+                timer = null;
+            }, delay);
+        }
+    };
+};

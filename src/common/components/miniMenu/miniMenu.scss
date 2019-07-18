@@ -1,0 +1,23 @@
+.comp-miniMenu {
+    position: fixed;
+    bottom: 1rem;
+    right: 0;
+}
+
+.comp-menuItem {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: .6rem;
+    height: .6rem;
+    background: rgba(204, 204, 204, 0.8);
+    cursor: pointer;
+    & + & {
+        border-top: 1px solid #eee;
+    }
+    .iconfont {
+        color: #fff;
+        font-size: .36rem;
+    }
+}

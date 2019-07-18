@@ -24,8 +24,10 @@ export const fetchHomeData = ({pageNumber = PAGE_NUMBER, pageSize = PAGE_SIZE} =
     });
     return axiosUrl({
         url: homeApi,
-        pageNumber,
-        pageSize
+        params: {
+            pageNumber,
+            pageSize
+        }
     })
         .then(getJson)
         .then((data) => {
